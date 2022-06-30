@@ -16,7 +16,7 @@ def supers_list(request):
         for super in supers:
             super_types = Super.objects.filter(super_type__type=super.super_type.type)
             serializer = SuperSerializer(super_types, many=True)
-            custom_response[f'{super.super_type.type}{"es" if super.super_type.type=="Hero" else "s"}']=serializer.data
+            custom_response[f'{super.super_type.type}{"es" if super.super_type.type in ("Hero", "Heroine") else "s"}']=serializer.data
         return Response(custom_response, status=status.HTTP_200_OK)
     elif request.method == "POST":
         serializer = SuperSerializer(data=request.data)
